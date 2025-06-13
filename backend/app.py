@@ -64,4 +64,7 @@ def generate_alt_text():
 
 # Esta parte só é executada quando o script é rodado diretamente (não importado)
 if __name__ == '__main__':
-    app.run(debug=True, port=5000) # O backend rodará na porta 5000
+    # No Render, a porta é fornecida via variável de ambiente PORT
+    # E o host deve ser 0.0.0.0 para que o serviço seja acessível externamente
+    port = int(os.environ.get("PORT", 5000)) # Pega a porta do ambiente ou usa 5000 como fallback
+    app.run(host='0.0.0.0', port=port, debug=True)
